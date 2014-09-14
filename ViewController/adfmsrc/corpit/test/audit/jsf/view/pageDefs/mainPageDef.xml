@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.64.36" id="mainPageDef"
+                Package="corpit.test.audit.jsf.view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllDepartments" RangeSize="25" DataControl="AppModuleDataControl" id="AllDepartmentsIterator"
+              ChangeEventPolicy="ppr"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="AllDepartmentsIterator" id="DepartmentId">
+      <AttrNames>
+        <Item Value="DepartmentId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AllDepartmentsIterator" id="DepartmentName">
+      <AttrNames>
+        <Item Value="DepartmentName"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AllDepartmentsIterator" id="ManagerId">
+      <AttrNames>
+        <Item Value="ManagerId"/>
+      </AttrNames>
+    </attributeValues>
+    <attributeValues IterBinding="AllDepartmentsIterator" id="LocationId">
+      <AttrNames>
+        <Item Value="LocationId"/>
+      </AttrNames>
+    </attributeValues>
+    <action IterBinding="AllDepartmentsIterator" id="First" RequiresUpdateModel="true" Action="first"/>
+    <action IterBinding="AllDepartmentsIterator" id="Previous" RequiresUpdateModel="true" Action="previous"/>
+    <action IterBinding="AllDepartmentsIterator" id="Next" RequiresUpdateModel="true" Action="next"/>
+    <action IterBinding="AllDepartmentsIterator" id="Last" RequiresUpdateModel="true" Action="last"/>
+  </bindings>
+</pageDefinition>

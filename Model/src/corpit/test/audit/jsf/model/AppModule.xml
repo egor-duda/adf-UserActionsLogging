@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE AppModule SYSTEM "jbo_03_01.dtd">
+<!---->
+<AppModule
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="AppModule"
+  Version="11.1.2.64.36"
+  ClearCacheOnRollback="true">
+  <ViewUsage
+    Name="AllDepartments"
+    ViewObjectName="corpit.hr.model.view.DepartmentsView"/>
+</AppModule>
