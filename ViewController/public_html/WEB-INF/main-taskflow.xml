@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="main-taskflow">
+    <default-activity>main</default-activity>
+    <view id="main">
+      <page>/main.jsf</page>
+    </view>
+  </task-flow-definition>
+</adfc-config>
