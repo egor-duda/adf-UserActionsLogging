@@ -18,7 +18,8 @@
                               required="#{bindings.DepartmentName.hints.mandatory}"
                               columns="#{bindings.DepartmentName.hints.displayWidth}"
                               maximumLength="#{bindings.DepartmentName.hints.precision}"
-                              shortDesc="#{bindings.DepartmentName.hints.tooltip}" id="it2">
+                              shortDesc="#{bindings.DepartmentName.hints.tooltip}" id="it2" autoSubmit="true"
+                              valueChangeListener="#{mainBean.handleDepartmentNameChange}">
                     <f:validator binding="#{bindings.DepartmentName.validator}"/>
                 </af:inputText>
                 <af:inputText value="#{bindings.ManagerId.inputValue}" label="#{bindings.ManagerId.hints.label}"
