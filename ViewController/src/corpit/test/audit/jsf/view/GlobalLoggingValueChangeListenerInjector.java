@@ -28,7 +28,7 @@ public class GlobalLoggingValueChangeListenerInjector implements SystemEventList
             EditableValueHolder editableComponent = (EditableValueHolder)comp;
             boolean alreadyInjected = false;
             for (ValueChangeListener valueChangeListener: editableComponent.getValueChangeListeners()) {
-                if (valueChangeListener == globalLoggingValueChangeListener) {
+                if (valueChangeListener instanceof LoggingValueChangeListener) {
                     alreadyInjected = true;
                     break;
                 }
