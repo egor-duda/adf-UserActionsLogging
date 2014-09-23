@@ -11,8 +11,17 @@ import oracle.adf.share.logging.ADFLogger;
 public class GlobalActionListener implements ActionListener {
     
     private static ADFLogger logger = ADFLogger.createADFLogger(GlobalActionListener.class);
+    private final ActionListener delegate;
+    
     public GlobalActionListener() {
         super();
+        logger.info ("empty constructor called");
+        this.delegate = null;
+    }
+    
+    public GlobalActionListener (ActionListener delegate) {
+        logger.info ("delegating constructor called");
+        this.delegate = delegate;    
     }
 
     @Override
@@ -29,5 +38,8 @@ public class GlobalActionListener implements ActionListener {
             viewId = controllerContext.getCurrentViewPort().getViewId();
         }
         logger.fine("Action on " + compId + "@" + viewId);
+        if (delegate != null) {
+            delegate.processAction (actionEvent);
+        }
     }
 }
