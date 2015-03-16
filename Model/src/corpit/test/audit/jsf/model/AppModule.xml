@@ -8,5 +8,5 @@
   ClearCacheOnRollback="true">
   <ViewUsage
     Name="AllDepartments"
-    ViewObjectName="corpit.hr.model.view.DepartmentsView"/>
+    ViewObjectName="corpit.test.audit.jsf.model.DepartmentsView"/>
 </AppModule>

@@ -19,14 +19,8 @@
     ObjectType="JboPackage">
     <DesignTime>
       <Attr Name="_AM" Value="true"/>
+      <Attr Name="_EO" Value="true"/>
+      <Attr Name="_VO" Value="true"/>
     </DesignTime>
   </Containee>
-  <AppContainee
-    Name="HRModel"
-    FullName="corpit.hr.model.HRModel"
-    ObjectType="JboProject">
-    <DesignTime>
-      <Attr Name="_LocationURL" Value="../../../shared/HRModel/src/"/>
-    </DesignTime>
-  </AppContainee>
 </JboProject>

@@ -8,4 +8,8 @@
       <system-event-class>javax.faces.event.PreRenderViewEvent</system-event-class>
     </system-event-listener>
   </application>
+  <component>
+    <component-type>javax.faces.ViewRoot</component-type>
+    <component-class>corpit.test.audit.jsf.view.CustomViewRoot</component-class>
+  </component>
 </faces-config>
