@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+<!---->
+<ViewObject
+  xmlns="http://xmlns.oracle.com/bc4j"
+  Name="DepartmentsView"
+  Version="11.1.2.64.36"
+  SelectList="DepartmentEntity.DEPARTMENT_ID, 
+       DepartmentEntity.DEPARTMENT_NAME, 
+       DepartmentEntity.MANAGER_ID, 
+       DepartmentEntity.LOCATION_ID"
+  FromList="DEPARTMENTS DepartmentEntity"
+  BindingStyle="OracleName"
+  CustomQuery="false"
+  PageIterMode="Full"
+  UseGlueCode="false">
+  <EntityUsage
+    Name="DepartmentEntity"
+    Entity="corpit.test.audit.jsf.model.DepartmentEntity"/>
+  <ViewAttribute
+    Name="DepartmentId"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DepartmentId"
+    EntityUsage="DepartmentEntity"
+    AliasName="DEPARTMENT_ID"/>
+  <ViewAttribute
+    Name="DepartmentName"
+    IsNotNull="true"
+    PrecisionRule="true"
+    EntityAttrName="DepartmentName"
+    EntityUsage="DepartmentEntity"
+    AliasName="DEPARTMENT_NAME"/>
+  <ViewAttribute
+    Name="ManagerId"
+    PrecisionRule="true"
+    EntityAttrName="ManagerId"
+    EntityUsage="DepartmentEntity"
+    AliasName="MANAGER_ID"/>
+  <ViewAttribute
+    Name="LocationId"
+    PrecisionRule="true"
+    EntityAttrName="LocationId"
+    EntityUsage="DepartmentEntity"
+    AliasName="LOCATION_ID"/>
+</ViewObject>
