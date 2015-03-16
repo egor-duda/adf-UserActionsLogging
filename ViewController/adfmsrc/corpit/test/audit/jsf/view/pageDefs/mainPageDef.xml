@@ -23,14 +23,10 @@
         <Item Value="ManagerId"/>
       </AttrNames>
     </attributeValues>
-    <attributeValues IterBinding="AllDepartmentsIterator" id="LocationId">
-      <AttrNames>
-        <Item Value="LocationId"/>
-      </AttrNames>
-    </attributeValues>
     <action IterBinding="AllDepartmentsIterator" id="First" RequiresUpdateModel="true" Action="first"/>
     <action IterBinding="AllDepartmentsIterator" id="Previous" RequiresUpdateModel="true" Action="previous"/>
     <action IterBinding="AllDepartmentsIterator" id="Next" RequiresUpdateModel="true" Action="next"/>
     <action IterBinding="AllDepartmentsIterator" id="Last" RequiresUpdateModel="true" Action="last"/>
+    <listOfValues StaticList="false" IterBinding="AllDepartmentsIterator" Uses="LOV_LocationId" id="LocationId"/>
   </bindings>
 </pageDefinition>

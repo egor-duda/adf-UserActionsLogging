@@ -59,7 +59,7 @@
       <Attr Name="_DBObjectName" Value="DEPT_ID_PK"/>
     </DesignTime>
     <AttrArray Name="Attributes">
-      <Item Value="corpit.test.audit.jsf.model.DepartmentEntity.DepartmentId"/>
+      <Item Value="corpit.test.audit.jsf.model.entity.DepartmentEntity.DepartmentId"/>
     </AttrArray>
   </Key>
   <Key
@@ -79,7 +79,7 @@
       <Attr Name="_DBObjectName" Value="DEPT_LOC_FK"/>
     </DesignTime>
     <AttrArray Name="Attributes">
-      <Item Value="corpit.test.audit.jsf.model.DepartmentEntity.LocationId"/>
+      <Item Value="corpit.test.audit.jsf.model.entity.DepartmentEntity.LocationId"/>
     </AttrArray>
   </Key>
   <Key
@@ -90,7 +90,7 @@
       <Attr Name="_DBObjectName" Value="DEPT_MGR_FK"/>
     </DesignTime>
     <AttrArray Name="Attributes">
-      <Item Value="corpit.test.audit.jsf.model.DepartmentEntity.ManagerId"/>
+      <Item Value="corpit.test.audit.jsf.model.entity.DepartmentEntity.ManagerId"/>
     </AttrArray>
   </Key>
 </Entity>

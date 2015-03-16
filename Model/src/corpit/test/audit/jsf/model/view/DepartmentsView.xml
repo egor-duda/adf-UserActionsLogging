@@ -14,9 +14,33 @@
   CustomQuery="false"
   PageIterMode="Full"
   UseGlueCode="false">
+  <ViewAccessor
+    Name="LocationsVA"
+    ViewObjectName="corpit.test.audit.jsf.model.view.LocationsView"
+    RowLevelBinds="true"/>
+  <ListBinding
+    Name="LOV_LocationId"
+    ListVOName="LocationsVA"
+    ListRangeSize="-1"
+    ComboRowCountHint="10"
+    NullValueFlag="none"
+    MRUCount="0">
+    <AttrArray Name="AttrNames">
+      <Item Value="LocationId"/>
+    </AttrArray>
+    <AttrArray Name="ListAttrNames">
+      <Item Value="LocationId"/>
+    </AttrArray>
+    <AttrArray Name="ListDisplayAttrNames">
+      <Item Value="LocationId"/>
+      <Item Value="City"/>
+      <Item Value="StreetAddress"/>
+    </AttrArray>
+    <DisplayCriteria/>
+  </ListBinding>
   <EntityUsage
     Name="DepartmentEntity"
-    Entity="corpit.test.audit.jsf.model.DepartmentEntity"/>
+    Entity="corpit.test.audit.jsf.model.entity.DepartmentEntity"/>
   <ViewAttribute
     Name="DepartmentId"
     IsNotNull="true"
@@ -42,5 +66,13 @@
     PrecisionRule="true"
     EntityAttrName="LocationId"
     EntityUsage="DepartmentEntity"
-    AliasName="LOCATION_ID"/>
+    AliasName="LOCATION_ID"
+    LOVName="LOV_LocationId">
+    <Properties>
+      <SchemaBasedProperties>
+        <CONTROLTYPE
+          Value="combo_lov"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
 </ViewObject>

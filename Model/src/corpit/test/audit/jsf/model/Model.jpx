@@ -14,12 +14,26 @@
     <Attr Name="_appModuleNames0" Value="corpit.test.audit.jsf.model.AppModule"/>
   </DesignTime>
   <Containee
+    Name="entity"
+    PackageName="corpit.test.audit.jsf.model.entity"
+    ObjectType="JboPackage">
+    <DesignTime>
+      <Attr Name="_EO" Value="true"/>
+    </DesignTime>
+  </Containee>
+  <Containee
     Name="model"
     PackageName="corpit.test.audit.jsf.model"
     ObjectType="JboPackage">
     <DesignTime>
       <Attr Name="_AM" Value="true"/>
-      <Attr Name="_EO" Value="true"/>
+    </DesignTime>
+  </Containee>
+  <Containee
+    Name="view"
+    PackageName="corpit.test.audit.jsf.model.view"
+    ObjectType="JboPackage">
+    <DesignTime>
       <Attr Name="_VO" Value="true"/>
     </DesignTime>
   </Containee>

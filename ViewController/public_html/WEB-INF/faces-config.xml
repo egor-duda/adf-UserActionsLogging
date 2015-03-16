@@ -4,12 +4,8 @@
     <default-render-kit-id>oracle.adf.rich</default-render-kit-id>
     <action-listener>corpit.test.audit.jsf.view.GlobalActionListener</action-listener>
     <system-event-listener>
-      <system-event-listener-class>corpit.test.audit.jsf.view.GlobalLoggingValueChangeListenerInjector</system-event-listener-class>
+      <system-event-listener-class>corpit.test.audit.jsf.view.GlobalLoggingListenerInjector</system-event-listener-class>
       <system-event-class>javax.faces.event.PreRenderViewEvent</system-event-class>
     </system-event-listener>
   </application>
-  <component>
-    <component-type>javax.faces.ViewRoot</component-type>
-    <component-class>corpit.test.audit.jsf.view.CustomViewRoot</component-class>
-  </component>
 </faces-config>
