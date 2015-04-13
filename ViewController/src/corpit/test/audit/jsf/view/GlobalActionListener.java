@@ -15,12 +15,10 @@ public class GlobalActionListener implements ActionListener {
     
     public GlobalActionListener() {
         super();
-        logger.info ("empty constructor called");
         this.delegate = null;
     }
     
     public GlobalActionListener (ActionListener delegate) {
-        logger.info ("delegating constructor called");
         this.delegate = delegate;    
     }
 

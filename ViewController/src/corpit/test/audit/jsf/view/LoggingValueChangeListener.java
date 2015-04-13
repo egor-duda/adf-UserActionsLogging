@@ -1,5 +1,7 @@
 package corpit.test.audit.jsf.view;
 
+import java.util.logging.Level;
+
 import javax.faces.component.UIComponent;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ValueChangeEvent;
@@ -7,9 +9,11 @@ import javax.faces.event.ValueChangeListener;
 
 import oracle.adf.share.logging.ADFLogger;
 
-public class LoggingValueChangeListener implements ValueChangeListener {
+public class LoggingValueChangeListener implements ValueChangeListener, LoggingListener {
     
     private static ADFLogger logger = ADFLogger.createADFLogger(LoggingValueChangeListener.class);
+    
+    private static final Level loggingLevel = Level.FINER;
     
     public LoggingValueChangeListener() {
         super();
@@ -29,6 +33,11 @@ public class LoggingValueChangeListener implements ValueChangeListener {
         retVal.append (" -> ");
         retVal.append (newValue == null ? "null" : newValue.toString());
         
-        logger.finer (retVal.toString());
+        logger.log (loggingLevel, retVal.toString());
+    }
+
+    @Override
+    public boolean isLoggingEnabled() {
+        return logger.isLoggable (loggingLevel);
     }
 }

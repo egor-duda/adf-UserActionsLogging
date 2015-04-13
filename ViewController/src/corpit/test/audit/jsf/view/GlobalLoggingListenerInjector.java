@@ -39,7 +39,7 @@ public class GlobalLoggingListenerInjector implements SystemEventListener {
 
     private void recursiveAddGlobalListeners (UIComponent comp) {
         if (comp == null) return;
-        if (comp instanceof EditableValueHolder) {
+        if (comp instanceof EditableValueHolder && globalLoggingValueChangeListener.isLoggingEnabled()) {
             EditableValueHolder editableComponent = (EditableValueHolder)comp;
             boolean alreadyInjected = false;
             for (ValueChangeListener valueChangeListener: editableComponent.getValueChangeListeners()) {
@@ -53,7 +53,7 @@ public class GlobalLoggingListenerInjector implements SystemEventListener {
                 logger.finest ("attached valueChangeListener to " + comp.getClientId());
             }
         }
-        if (comp instanceof RichDialog) {
+        if (comp instanceof RichDialog && globalLoggingDialogListener.isLoggingEnabled()) {
             RichDialog dialogComponent = (RichDialog)comp;
             boolean alreadyInjected = false;
             for (DialogListener dialogListener: dialogComponent.getDialogListeners()) {
@@ -67,7 +67,7 @@ public class GlobalLoggingListenerInjector implements SystemEventListener {
                 logger.finest ("attached dialogListener to " + comp.getClientId());
             }
         }
-        if (comp instanceof RichPopup) {
+        if (comp instanceof RichPopup && globalLoggingPopupCancelledListener.isLoggingEnabled()) {
             RichPopup popupComponent = (RichPopup)comp;
             boolean alreadyInjected = false;
             for (PopupCanceledListener popupCancelledListener: popupComponent.getPopupCanceledListeners()) {
@@ -81,7 +81,8 @@ public class GlobalLoggingListenerInjector implements SystemEventListener {
                 logger.finest ("attached popupCancelledListener to " + comp.getClientId());
             }
         }
-        if (comp instanceof UIXInputPopup) {
+        if (comp instanceof UIXInputPopup && 
+            ( globalLoggingLaunchPopupListener.isLoggingEnabled() || globalLoggingReturnPopupListener.isLoggingEnabled())) {
             UIXInputPopup popupComponent = (UIXInputPopup)comp;
             boolean launchPopupListenerAlreadyInjected = false;
             for (LaunchPopupListener launchPopupListener: popupComponent.getLaunchPopupListeners()) {
@@ -116,6 +117,7 @@ public class GlobalLoggingListenerInjector implements SystemEventListener {
     
     private void recursiveAddGlobalClientListener (UIComponent comp) {
         if (comp == null) return;
+        if (!LoggingClientListenerSet.isLoggingEnabled()) return;
         try {
             Method getClientListenersMethod = comp.getClass().getMethod("getClientListeners");
             Method setClientListenersMethod = comp.getClass().getMethod("setClientListeners", ClientListenerSet.class);
@@ -142,8 +144,16 @@ public class GlobalLoggingListenerInjector implements SystemEventListener {
 
     @Override
     public void processEvent(SystemEvent systemEvent) throws AbortProcessingException {
-        recursiveAddGlobalListeners ((UIViewRoot)systemEvent.getSource());
-        recursiveAddGlobalClientListener ((UIViewRoot)systemEvent.getSource());
+        if (globalLoggingDialogListener.isLoggingEnabled()
+            || globalLoggingLaunchPopupListener.isLoggingEnabled()
+            || globalLoggingPopupCancelledListener.isLoggingEnabled()
+            || globalLoggingReturnPopupListener.isLoggingEnabled()
+            || globalLoggingValueChangeListener.isLoggingEnabled()) {
+            recursiveAddGlobalListeners ((UIViewRoot)systemEvent.getSource());
+        }
+        if (LoggingClientListenerSet.isLoggingEnabled()) {
+            recursiveAddGlobalClientListener ((UIViewRoot)systemEvent.getSource());
+        }
     }
 
     @Override

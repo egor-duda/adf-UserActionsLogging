@@ -1,5 +1,7 @@
 package corpit.test.audit.jsf.view;
 
+import java.util.logging.Level;
+
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 
@@ -17,6 +19,8 @@ public class LoggingClientListenerSet extends ClientListenerSet {
     private static final long serialVersionUID = -1028545489124449652L;
     
     private ClientListenerSet cls;
+    
+    private static final Level loggingLevel = Level.FINE;
 
     public LoggingClientListenerSet (ClientListenerSet cls) {
         this.cls = cls;
@@ -52,7 +56,11 @@ public class LoggingClientListenerSet extends ClientListenerSet {
     }
 
     public void invokeCustomEventListeners (FacesContext facesContext, ClientEvent clientEvent) {
-        logger.fine ("clientEvent " + clientEvent.getType() + " for " + clientEvent.getComponent().getClientId());
+        logger.log (loggingLevel, "clientEvent " + clientEvent.getType() + " for " + clientEvent.getComponent().getClientId());
         cls.invokeCustomEventListeners(facesContext, clientEvent);
+    }
+
+    public static boolean isLoggingEnabled() {
+        return logger.isLoggable(loggingLevel);
     }
 }
