@@ -57,6 +57,7 @@
                                               shortDesc="#{bindings.LocationId.hints.tooltip}">
                     <f:validator binding="#{bindings.LocationId.validator}"/>
                     <af:convertNumber groupingUsed="false" pattern="#{bindings.LocationId.format}"/>
+                    <af:autoSuggestBehavior suggestedItems="#{bindings.LocationId.suggestedItems}"/>
                 </af:inputComboboxListOfValues>
                 <f:facet name="footer">
                     <af:panelGroupLayout layout="vertical" id="pgl1">

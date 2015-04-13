@@ -29,6 +29,18 @@ public class LoggingClientListenerSet extends ClientListenerSet {
                 super.addListener(listenerType, functionName);
             }
         }
+        for (Object behavior: cls.getBehaviors()) {
+            if (behavior instanceof String) {
+                super.addBehavior((String)behavior);
+            } else if (behavior instanceof ValueExpression) {
+                super.addBehavior((ValueExpression)behavior);
+            } else if (behavior != null) {
+                logger.severe ("Unknown behavior of type " + behavior.getClass().getName() + ": " + behavior);
+            }
+        }
+        for (String dependency: cls.getFeatureDependencies()) {
+            super.addFeatureDependency(dependency);
+        }
     }
 
     public void addBehavior (String behavior) {
