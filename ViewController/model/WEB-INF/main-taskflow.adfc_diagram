@@ -1,7 +1,10 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <SDM>
    <OverallProperties
-      id="OverallProperties1"/>
+      id="OverallProperties1">
+      <property
+         name="linkStyle">Orthogonal</property>
+   </OverallProperties>
    <View
       id="View2">
       <property
@@ -19,4 +22,58 @@
       <property
          name="x">153.5</property>
    </View>
+   <TaskFlowCall
+      id="TaskFlowCall3">
+      <property
+         name="activityId">dialog-taskflow</property>
+      <property
+         name="documentReference">/WEB-INF/dialog-taskflow.xml</property>
+      <property
+         name="runAsDialog">false</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>dialog-taskflow&lt;/b>&lt;/p>&lt;p>Activity Type:  Task Flow Call&lt;/p></property>
+      <property
+         name="taskFlowId">dialog-taskflow</property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">269.45605</property>
+      <property
+         name="x">364.6914</property>
+   </TaskFlowCall>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase4"
+      from="View2"
+      to="View5">
+      <property
+         name="fromOutcome">dialog</property>
+      <property
+         name="sdm:polyPoints">B50,153.5,425.62402,L50</property>
+   </ControlFlowCase>
+   <View
+      id="View5">
+      <property
+         name="activityId">dialog</property>
+      <property
+         name="page">/dialog.jsf</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>dialog&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">425.91602</property>
+      <property
+         name="x">367.5</property>
+   </View>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase6"
+      from="View5"
+      to="View2">
+      <property
+         name="fromOutcome">exit</property>
+      <property
+         name="sdm:polyPoints">L46,157.0,422.12402,B56</property>
+   </ControlFlowCase>
 </SDM>

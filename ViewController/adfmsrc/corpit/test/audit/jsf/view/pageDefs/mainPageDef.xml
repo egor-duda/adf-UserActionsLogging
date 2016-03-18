@@ -28,5 +28,11 @@
     <action IterBinding="AllDepartmentsIterator" id="Next" RequiresUpdateModel="true" Action="next"/>
     <action IterBinding="AllDepartmentsIterator" id="Last" RequiresUpdateModel="true" Action="last"/>
     <listOfValues StaticList="false" IterBinding="AllDepartmentsIterator" Uses="LOV_LocationId" id="LocationId"/>
+    <methodAction id="loadClientScript" RequiresUpdateModel="true" Action="invokeMethod" MethodName="loadClientScript"
+                  IsViewObjectMethod="false" DataControl="UserActionsDataControl"
+                  InstanceName="data.UserActionsDataControl.dataProvider">
+      <NamedData NDName="actions" NDValue="#{mainBean.replayScript}"
+                 NDType="test.audit.client.ClientAction[]"/>
+    </methodAction>
   </bindings>
 </pageDefinition>

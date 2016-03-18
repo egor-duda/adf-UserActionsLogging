@@ -14,6 +14,7 @@
                 return true;
             }
         </af:resource>
+        <af:resource type="javascript" source="/resources/js/replay.js" />
         <af:messages id="m1"/>
         <af:popup childCreation="deferred" autoCancel="disabled" id="p1" binding="#{mainBean.dialogPopupComponent}">
             <af:dialog id="d2" dialogListener="#{mainBean.dialogListener}">
@@ -26,7 +27,7 @@
                               required="#{bindings.DepartmentId.hints.mandatory}"
                               columns="#{bindings.DepartmentId.hints.displayWidth}"
                               maximumLength="#{bindings.DepartmentId.hints.precision}"
-                              shortDesc="#{bindings.DepartmentId.hints.tooltip}" id="it1">
+                              shortDesc="#{bindings.DepartmentId.hints.tooltip}" id="dept_id_it">
                     <f:validator binding="#{bindings.DepartmentId.validator}"/>
                     <af:convertNumber groupingUsed="false" pattern="#{bindings.DepartmentId.format}"/>
                 </af:inputText>
@@ -35,7 +36,7 @@
                               required="#{bindings.DepartmentName.hints.mandatory}"
                               columns="#{bindings.DepartmentName.hints.displayWidth}"
                               maximumLength="#{bindings.DepartmentName.hints.precision}"
-                              shortDesc="#{bindings.DepartmentName.hints.tooltip}" id="it2" autoSubmit="true"
+                              shortDesc="#{bindings.DepartmentName.hints.tooltip}" id="dept_name_it"
                               valueChangeListener="#{mainBean.handleDepartmentNameChange}">
                     <f:validator binding="#{bindings.DepartmentName.validator}"/>
                 </af:inputText>
@@ -43,18 +44,18 @@
                               required="#{bindings.ManagerId.hints.mandatory}"
                               columns="#{bindings.ManagerId.hints.displayWidth}"
                               maximumLength="#{bindings.ManagerId.hints.precision}"
-                              shortDesc="#{bindings.ManagerId.hints.tooltip}" id="it3">
+                              shortDesc="#{bindings.ManagerId.hints.tooltip}" id="mgr_id_it">
                     <f:validator binding="#{bindings.ManagerId.validator}"/>
                     <af:convertNumber groupingUsed="false" pattern="#{bindings.ManagerId.format}"/>
                 </af:inputText>
-                <af:inputComboboxListOfValues id="locationIdId"
+                <af:inputComboboxListOfValues id="loc_id_itcblov"
                                               popupTitle="Search and Select: #{bindings.LocationId.hints.label}"
                                               value="#{bindings.LocationId.inputValue}"
                                               label="#{bindings.LocationId.hints.label}"
                                               model="#{bindings.LocationId.listOfValuesModel}"
                                               required="#{bindings.LocationId.hints.mandatory}"
                                               columns="#{bindings.LocationId.hints.displayWidth}"
-                                              shortDesc="#{bindings.LocationId.hints.tooltip}">
+                                              shortDesc="#{bindings.LocationId.hints.tooltip}" autoSubmit="true">
                     <f:validator binding="#{bindings.LocationId.validator}"/>
                     <af:convertNumber groupingUsed="false" pattern="#{bindings.LocationId.format}"/>
                     <af:autoSuggestBehavior suggestedItems="#{bindings.LocationId.suggestedItems}"/>
@@ -66,13 +67,15 @@
                                 <af:spacer width="10" height="1" id="s1"/>
                             </f:facet>
                             <af:commandButton actionListener="#{bindings.First.execute}" text="First"
-                                              disabled="#{!bindings.First.enabled}" partialSubmit="true" id="cb1"/>
+                                              disabled="#{!bindings.First.enabled}" partialSubmit="true"
+                                              id="first_btn"/>
                             <af:commandButton actionListener="#{bindings.Previous.execute}" text="Previous"
-                                              disabled="#{!bindings.Previous.enabled}" partialSubmit="true" id="cb2"/>
+                                              disabled="#{!bindings.Previous.enabled}" partialSubmit="true"
+                                              id="prev_btn"/>
                             <af:commandButton actionListener="#{bindings.Next.execute}" text="Next"
-                                              disabled="#{!bindings.Next.enabled}" partialSubmit="true" id="cb3"/>
+                                              disabled="#{!bindings.Next.enabled}" partialSubmit="true" id="next_btn"/>
                             <af:commandButton actionListener="#{bindings.Last.execute}" text="Last"
-                                              disabled="#{!bindings.Last.enabled}" partialSubmit="true" id="cb4"/>
+                                              disabled="#{!bindings.Last.enabled}" partialSubmit="true" id="last_btn"/>
                         </af:panelGroupLayout>
                         <af:panelGroupLayout id="pgl3" layout="horizontal">
                             <af:commandButton text="Submit" id="cb5"/>
@@ -81,6 +84,12 @@
                                 <af:spacer width="10" height="10" id="s2"/>
                             </f:facet>
                         </af:panelGroupLayout>
+                        <af:commandButton text="dialog-taskflow" action="dialog" id="dialog_btn" useWindow="true"
+                                          windowEmbedStyle="inlineDocument" windowModalityType="applicationModal"
+                                          returnListener="#{mainBean.dialogReturnListener}"/>
+                        <af:commandButton text="loadClientScript" id="cb8" partialSubmit="true"
+                                          actionListener="#{bindings.loadClientScript.execute}"
+                                          disabled="#{!bindings.loadClientScript.enabled}"/>
                     </af:panelGroupLayout>
                 </f:facet>
             </af:panelFormLayout>

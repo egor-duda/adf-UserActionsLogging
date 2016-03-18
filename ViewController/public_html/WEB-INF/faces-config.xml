@@ -8,4 +8,7 @@
       <system-event-class>javax.faces.event.PreRenderViewEvent</system-event-class>
     </system-event-listener>
   </application>
+  <lifecycle>
+    <phase-listener>corpit.test.audit.jsf.view.ReplayUserInputPhaseListener</phase-listener>
+  </lifecycle>
 </faces-config>

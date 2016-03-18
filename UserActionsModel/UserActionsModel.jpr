@@ -43,44 +43,25 @@
       <value n="oracle.toplink.workbench.addin.migration.TopLinkProjectMigrator" v="11.1.1.1.0"/>
    </hash>
    <list n="contentSets">
-      <string v="oracle.mds.internal.dt.ide.MDSLibraryCustCSProvider/mdsContentSet"/>
-      <string v="oracle.mds.internal.dt.ide.MDSADFLibVirtualNodeCSProvider/mdsLibVirtualNodeContentSet"/>
+      <string v="oracle.jdeveloper.model.J2eeSettings/webContentSet"/>
       <string v="oracle.jdeveloper.model.PathsConfiguration/javaContentSet"/>
       <string v="oracle.ide.model.ResourcePaths/resourcesContentSet"/>
-      <string v="oracle.jdeveloper.model.J2eeSettings/webContentSet"/>
-      <string v="oracle.jdeveloper.offlinedb.model.OfflineDBProjectSettings/offlineDBContentSet"/>
       <string v="oracle.bm.commonIde.data.project.ModelerProjectSettings/modelersContentSet"/>
+      <string v="oracle.mds.internal.dt.ide.MDSLibraryCustCSProvider/mdsContentSet"/>
+      <string v="oracle.mds.internal.dt.ide.MDSADFLibVirtualNodeCSProvider/mdsLibVirtualNodeContentSet"/>
+      <string v="oracle.jdeveloper.offlinedb.model.OfflineDBProjectSettings/offlineDBContentSet"/>
       <string v="oracle.adfdtinternal.model.ide.settings.ADFMSettings/adfmContentSet"/>
       <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
    </list>
-   <value n="defaultPackage" v="corpit.test.audit.jsf.view"/>
+   <value n="defaultPackage" v="test.audit"/>
    <hash n="oracle.adfdtinternal.model.ide.settings.ADFMSettings">
       <value n="hasDataControls" v="true"/>
-   </hash>
-   <hash n="oracle.ide.model.DependencyConfiguration">
-      <list n="dependencyList">
-         <hash>
-            <hash n="dependable">
-               <url n="sourceOwnerURL" path="../JSFAudit.jws"/>
-               <url n="sourceURL" path="../Model/Model.jpr"/>
-            </hash>
-            <value n="recognizerId" v="oracle.jdeveloper.library"/>
-         </hash>
-         <hash>
-            <hash n="dependable">
-               <url n="sourceOwnerURL" path="../JSFAudit.jws"/>
-               <url n="sourceURL" path="../UserActionsModel/UserActionsModel.jpr"/>
-            </hash>
-            <value n="recognizerId" v="oracle.jdeveloper.library"/>
-         </hash>
-      </list>
    </hash>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
       <list n="technologyScope">
          <string v="ADF_FACES"/>
-         <string v="ADFc"/>
+         <string v="ADFbc"/>
          <string v="ADFm"/>
-         <string v="JAVASCRIPT"/>
          <string v="JSF"/>
          <string v="JSP"/>
          <string v="Java"/>
@@ -103,99 +84,14 @@
       </list>
       <value n="webIANAEncoding" v="UTF-8"/>
    </hash>
-   <hash n="oracle.jdeveloper.deploy.dt.DeploymentProfiles">
-      <hash n="profileDefinitions">
-         <hash n="JSFAudit_Project1_webapp">
-            <hash n="appletArchives"/>
-            <hash n="appletFiles">
-               <value n="autoInclude" v="true"/>
-               <list n="selectionFilters">
-                  <string v="oracle.jdevimpl.deploy.common.JavaSelectionFilter"/>
-               </list>
-            </hash>
-            <hash n="archiveOptions">
-               <value n="hasManifest" v="false"/>
-            </hash>
-            <value n="enterpriseAppName" v="JSFAudit_Project1_webapp"/>
-            <hash n="fileGroups">
-               <list n="groups">
-                  <hash>
-                     <list n="contributors">
-                        <hash>
-                           <value n="type" v="5"/>
-                        </hash>
-                     </list>
-                     <value n="displayName" v="Web Files"/>
-                     <hash n="filters">
-                        <list n="rules">
-                           <hash>
-                              <value n="DefaultFilters" v=""/>
-                           </hash>
-                        </list>
-                     </hash>
-                     <value n="internalName" v="web-files"/>
-                     <value n="type" v="1"/>
-                  </hash>
-                  <hash>
-                     <list n="contributors">
-                        <hash>
-                           <value n="type" v="2"/>
-                        </hash>
-                        <hash>
-                           <value n="type" v="7"/>
-                        </hash>
-                     </list>
-                     <value n="displayName" v="WEB-INF/classes"/>
-                     <hash n="filters">
-                        <list n="rules">
-                           <hash>
-                              <value n="DefaultFilters" v=""/>
-                           </hash>
-                        </list>
-                     </hash>
-                     <value n="internalName" v="project-output"/>
-                     <value n="targetWithinJar" v="WEB-INF/classes"/>
-                     <value n="type" v="1"/>
-                  </hash>
-                  <hash>
-                     <value n="displayName" v="WEB-INF/lib"/>
-                     <hash n="filters">
-                        <list n="rules">
-                           <hash>
-                              <value n="pattern" v="**"/>
-                           </hash>
-                        </list>
-                     </hash>
-                     <value n="internalName" v="libraries"/>
-                     <value n="targetWithinJar" v="WEB-INF/lib"/>
-                     <value n="type" v="3"/>
-                  </hash>
-               </list>
-            </hash>
-            <url n="jarURL" path="deploy/JSFAudit_Project1_webapp.war"/>
-            <hash n="libraryDependencies">
-               <value n="IncludeLibrariesFromOtherContainers" v="true"/>
-            </hash>
-            <value n="profileClass" v="oracle.jdeveloper.deploy.war.WarProfile"/>
-            <value n="profileName" v="JSFAudit_Project1_webapp"/>
-         </hash>
-      </hash>
-      <list n="profileList">
-         <string v="JSFAudit_Project1_webapp"/>
-      </list>
-   </hash>
    <hash n="oracle.jdeveloper.model.J2eeSettings">
-      <value n="j2eeWebAppName" v="JSFAudit-ViewController-webapp"/>
-      <value n="j2eeWebContextRoot" v="JSFAudit-ViewController-context-root"/>
+      <value n="j2eeWebAppName" v="JSFAudit-UserActionsModel-webapp"/>
+      <value n="j2eeWebContextRoot" v="JSFAudit-UserActionsModel-context-root"/>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectLibraries">
       <list n="exportedReferences">
          <hash>
-            <value n="id" v="ADF Controller Runtime"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="JSF 2.0"/>
+            <value n="id" v="Java EE 1.5 API"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -203,21 +99,45 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="ADF Common Web Runtime"/>
+            <value n="id" v="JSP Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Java EE 1.5 API"/>
+            <value n="id" v="JSF 2.0"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="JSTL 1.2"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="ADF Model Runtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="ADF Model Generic Runtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="BC4J Oracle Domains"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="BC4J Runtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="BC4J Security"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle JDBC"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
       <list n="libraryReferences">
          <hash>
-            <value n="id" v="ADF Controller Runtime"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="JSF 2.0"/>
+            <value n="id" v="Java EE 1.5 API"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
@@ -225,11 +145,39 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="ADF Common Web Runtime"/>
+            <value n="id" v="JSP Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <value n="id" v="Java EE 1.5 API"/>
+            <value n="id" v="JSF 2.0"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="JSTL 1.2"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="ADF Model Runtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="ADF Model Generic Runtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="BC4J Oracle Domains"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="BC4J Runtime"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="BC4J Security"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <value n="id" v="Oracle JDBC"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
@@ -309,46 +257,6 @@
             <value n="URI" v="http://java.sun.com/jsp/jstl/functions"/>
             <value n="version" v="2.0"/>
          </hash>
-         <hash>
-            <hash n="baseLibrary">
-               <value n="name" v="ADF Faces Components"/>
-               <value n="version" v="11"/>
-            </hash>
-            <value n="name" v="ADF Faces Components"/>
-            <value n="taglibURL" v="@oracle.home@../oracle_common/modules/oracle.adf.view_11.1.1/adf-richclient-impl-11.jar!/META-INF/afu.taglib.xml"/>
-            <value n="URI" v="http://xmlns.oracle.com/adf/faces/rich"/>
-            <value n="version" v="11"/>
-         </hash>
-         <hash>
-            <hash n="baseLibrary">
-               <value n="name" v="JSF Compatibility Tags for Facelets"/>
-               <value n="version" v="11"/>
-            </hash>
-            <value n="name" v="JSF Compatibility Tags for Facelets"/>
-            <value n="taglibURL" v="@oracle.home@../oracle_common/modules/oracle.adf.view_11.1.1/adf-richclient-impl-11.jar!/META-INF/jsp.taglib.xml"/>
-            <value n="URI" v="http://java.sun.com/JSP/Page"/>
-            <value n="version" v="11"/>
-         </hash>
-         <hash>
-            <hash n="baseLibrary">
-               <value n="name" v="ADF Faces Component Tags"/>
-               <value n="version" v="11"/>
-            </hash>
-            <value n="name" v="ADF Faces Component Tags"/>
-            <value n="taglibURL" v="@oracle.home@../oracle_common/modules/oracle.adf.view_11.1.1/adf-richclient-impl-11.jar!/META-INF/component.taglib.xml"/>
-            <value n="URI" v="http://xmlns.oracle.com/adf/faces/rich/component"/>
-            <value n="version" v="11"/>
-         </hash>
-         <hash>
-            <hash n="baseLibrary">
-               <value n="name" v="ADF Data Visualization"/>
-               <value n="version" v="11"/>
-            </hash>
-            <value n="name" v="ADF Data Visualization"/>
-            <value n="taglibURL" v="@oracle.home@../oracle_common/modules/oracle.adf.view_11.1.1/dvt-faces.jar!/META-INF/bi.taglib.xml"/>
-            <value n="URI" v="http://xmlns.oracle.com/dss/adf/faces"/>
-            <value n="version" v="11"/>
-         </hash>
       </list>
    </hash>
    <hash n="oracle.jdevimpl.webapp.jsp.libraries.model.ProjectTagLibraries">
@@ -374,28 +282,6 @@
             <value n="tldURL" v="@oracle.home@../oracle_common/modules/oracle.jsf_2.0/jsf-impl.jar!/META-INF/html_basic.tld"/>
             <value n="URI" v="http://java.sun.com/jsf/html"/>
             <value n="version" v="2.0"/>
-         </hash>
-         <hash>
-            <hash n="baseLibrary">
-               <value n="name" v="ADF Faces Components"/>
-               <value n="version" v="11"/>
-            </hash>
-            <value n="jspVersion" v="1.2"/>
-            <value n="name" v="ADF Faces Components"/>
-            <value n="tldURL" v="@oracle.home@../oracle_common/modules/oracle.adf.view_11.1.1/adf-richclient-impl-11.jar!/META-INF/afu.tld"/>
-            <value n="URI" v="http://xmlns.oracle.com/adf/faces/rich"/>
-            <value n="version" v="11"/>
-         </hash>
-         <hash>
-            <hash n="baseLibrary">
-               <value n="name" v="ADF Data Visualization"/>
-               <value n="version" v="1.1"/>
-            </hash>
-            <value n="jspVersion" v="2.1"/>
-            <value n="name" v="ADF Data Visualization"/>
-            <value n="tldURL" v="@oracle.home@../oracle_common/modules/oracle.adf.view_11.1.1/dvt-faces.jar!/META-INF/bi.tld"/>
-            <value n="URI" v="http://xmlns.oracle.com/dss/adf/faces"/>
-            <value n="version" v="1.1"/>
          </hash>
       </list>
    </hash>

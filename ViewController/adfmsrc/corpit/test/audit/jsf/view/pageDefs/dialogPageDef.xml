@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="11.1.2.64.36" id="dialogPageDef"
+                Package="corpit.test.audit.jsf.view.pageDefs">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+    <iterator Binds="AllDepartments" RangeSize="25" DataControl="AppModuleDataControl" id="AllDepartmentsIterator"/>
+  </executables>
+  <bindings>
+    <attributeValues IterBinding="AllDepartmentsIterator" id="DepartmentName">
+      <AttrNames>
+        <Item Value="DepartmentName"/>
+      </AttrNames>
+    </attributeValues>
+  </bindings>
+</pageDefinition>

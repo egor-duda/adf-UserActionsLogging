@@ -3,11 +3,14 @@
              SeparateXMLFiles="false" Package="corpit.test.audit.jsf.view" ClientType="Generic">
   <pageMap>
     <page path="/main.jsf" usageId="corpit_test_audit_jsf_view_mainPageDef"/>
+    <page path="/dialog.jsf" usageId="corpit_test_audit_jsf_view_dialogPageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="corpit_test_audit_jsf_view_mainPageDef" path="corpit.test.audit.jsf.view.pageDefs.mainPageDef"/>
+    <page id="corpit_test_audit_jsf_view_dialogPageDef" path="corpit.test.audit.jsf.view.pageDefs.dialogPageDef"/>
   </pageDefinitionUsages>
   <dataControlUsages>
+    <dc id="UserActionsDataControl" path="test.audit.UserActionsDataControl"/>
     <BC4JDataControl id="AppModuleDataControl" Package="corpit.test.audit.jsf.model"
                      FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
                      SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
