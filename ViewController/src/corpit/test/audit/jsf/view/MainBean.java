@@ -10,9 +10,9 @@ import oracle.adf.view.rich.render.ClientEvent;
 
 import org.apache.myfaces.trinidad.event.ReturnEvent;
 
+import test.audit.UserActionsDataControl;
 import test.audit.client.ClientAction;
 import test.audit.client.CommandAction;
-import test.audit.client.SkipAction;
 import test.audit.client.ValueChangeAction;
 
 public class MainBean {
@@ -28,7 +28,7 @@ public class MainBean {
     }
     
     public void onLoad (ClientEvent clientEvent) {
-        clientEvent.hashCode();
+        if (clientEvent == null) return;
     }
 
     public void callDialog (ActionEvent actionEvent) {
@@ -53,15 +53,21 @@ public class MainBean {
     }
 
     public ClientAction[] getReplayScript () {
+        final String MAIN_CONTEXT = "/main-taskflow/main";
+        final String DIALOG_CONTEXT = "/dialog-taskflow/dialog";
         return new ClientAction [] {
-            new ValueChangeAction ("dept_name_it", "dummy")
-            , new ValueChangeAction ("loc_id_itcblov", "1200")
-            , new CommandAction ("dialog_btn")
-            , new CommandAction ("exit_btn")
-            , new SkipAction ()
-            , new ValueChangeAction ("dept_name_it", "not dummy")
-            , new CommandAction ("next_btn")
-            , new CommandAction ("first_btn")
+            new ValueChangeAction (MAIN_CONTEXT, "dept_name_it", "dummy")
+            , new ValueChangeAction (MAIN_CONTEXT, "loc_id_itcblov", "1200")
+            , new CommandAction (MAIN_CONTEXT, "dialog_btn")
+            , new CommandAction (DIALOG_CONTEXT, "exit_btn")
+            , new ValueChangeAction (MAIN_CONTEXT, "dept_name_it", "not dummy")
+            , new CommandAction (MAIN_CONTEXT, "next_btn")
+            , new CommandAction (MAIN_CONTEXT, "last_btn")
         };
+    }
+
+    public void replayDone(ClientEvent clientEvent) {
+        if (clientEvent == null) return;
+        UserActionsDataControl.replayDone();        
     }
 }

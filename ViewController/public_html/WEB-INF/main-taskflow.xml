@@ -10,6 +10,11 @@
         <document>/WEB-INF/dialog-taskflow.xml</document>
         <id>dialog-taskflow</id>
       </task-flow-reference>
+      <run-as-dialog>
+        <display-type>
+          <inline-popup/>
+        </display-type>
+      </run-as-dialog>
     </task-flow-call>
     <view id="dialog">
       <page>/dialog.jsf</page>
@@ -18,7 +23,7 @@
       <from-activity-id>main</from-activity-id>
       <control-flow-case id="__3">
         <from-outcome>dialog</from-outcome>
-        <to-activity-id>dialog</to-activity-id>
+        <to-activity-id>dialog-taskflow</to-activity-id>
       </control-flow-case>
     </control-flow-rule>
     <control-flow-rule id="__1">

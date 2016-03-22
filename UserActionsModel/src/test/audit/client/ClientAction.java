@@ -6,11 +6,18 @@ import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.util.Service;
 
 public abstract class ClientAction {
+    
+    private String context;
+    
+    public ClientAction (String context) {
+        this.context = context;
+    }
+    
     public void invoke() {
         FacesContext fctx = FacesContext.getCurrentInstance();
-        StringBuilder script = new StringBuilder();
-        script = script.append("setTimeout(function(){" + getActionJS() + "}, 1000);");
-        Service.getRenderKitService(fctx, ExtendedRenderKitService.class).addScript(fctx, script.toString());
+        if (context != null && !context.equals(fctx.getViewRoot().getViewId())) return;
+        String script = getActionJS();
+        Service.getRenderKitService(fctx, ExtendedRenderKitService.class).addScript(fctx, script);
     };
 
     protected abstract String getActionJS();

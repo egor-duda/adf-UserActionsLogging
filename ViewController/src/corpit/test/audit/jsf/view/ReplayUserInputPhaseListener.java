@@ -9,7 +9,7 @@ import test.audit.UserActionsDataControl;
 public class ReplayUserInputPhaseListener implements PhaseListener {
     @SuppressWarnings("compatibility:-7409327685748085366")
     private static final long serialVersionUID = 1L;
-
+    
     public ReplayUserInputPhaseListener() {
         super();
     }
@@ -20,7 +20,7 @@ public class ReplayUserInputPhaseListener implements PhaseListener {
 
     @Override
     public void beforePhase(PhaseEvent phaseEvent) {
-        UserActionsDataControl.invokeNextAction();
+        UserActionsDataControl.invokeAction();
     }
 
     @Override

@@ -3,6 +3,7 @@
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
     <af:document title="main.jsf" id="d1">
         <af:serverListener type="onloadEvent" method="#{mainBean.onLoad}"/>
+        <af:serverListener type="replayDone" method="#{mainBean.replayDone}"/>
         <af:clientListener method="onLoadClient" type="load"/>    
         <af:resource type="javascript">            
             function onLoadClient(event) {

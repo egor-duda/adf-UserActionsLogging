@@ -3,18 +3,27 @@ package test.audit;
 import oracle.adf.model.BindingContext;
 import oracle.adf.model.adapter.AdapterDCService;
 
+import oracle.adf.share.logging.ADFLogger;
+
 import test.audit.client.ClientAction;
 import test.audit.client.ClientScript;
 
 public class UserActionsDataControl {
+    
+    private static final ADFLogger logger = ADFLogger.createADFLogger(UserActionsDataControl.class);
+    
     private ClientScript clientScript = new ClientScript();
 
     public void loadClientScript(ClientAction[] actions) {
         clientScript.loadScript(actions);
     }
 
-    public ClientAction getNextAction() {
-        return clientScript.getNextAction();
+    public ClientAction getAction() {
+        return clientScript.getAction();
+    }
+    
+    private void nextAction () {
+        clientScript.nextAction();
     }
     
     private static UserActionsDataControl getInstance () {
@@ -31,12 +40,18 @@ public class UserActionsDataControl {
         return null;
     }
     
-    public static void invokeNextAction () {
+    public static void replayDone () {
+        UserActionsDataControl dc = UserActionsDataControl.getInstance();
+        dc.nextAction();
+    }
+    
+    public static void invokeAction () {
         UserActionsDataControl dc = UserActionsDataControl.getInstance();
         if (dc != null) {
-            ClientAction nextAction = dc.getNextAction();
-            if (nextAction != null) {
-                nextAction.invoke();
+            ClientAction currentAction = dc.getAction();
+            if (currentAction != null) {
+                logger.finest ("setting action: " + currentAction);
+                currentAction.invoke();
             }
         }
     }
