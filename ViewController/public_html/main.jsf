@@ -1,9 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
-    <af:document title="main.jsf" id="d1">
+    <af:document title="main.jsf" id="main_d1">
         <af:serverListener type="onloadEvent" method="#{mainBean.onLoad}"/>
-        <af:serverListener type="replayDone" method="#{mainBean.replayDone}"/>
         <af:clientListener method="onLoadClient" type="load"/>    
         <af:resource type="javascript">            
             function onLoadClient(event) {
@@ -18,9 +17,7 @@
         <af:resource type="javascript" source="/resources/js/replay.js" />
         <af:messages id="m1"/>
         <af:popup childCreation="deferred" autoCancel="disabled" id="p1" binding="#{mainBean.dialogPopupComponent}">
-            <af:dialog id="d2" dialogListener="#{mainBean.dialogListener}">
-                <f:facet name="buttonBar"/>
-            </af:dialog>
+            <af:dialog id="main_dlg" dialogListener="#{mainBean.dialogListener}"/>
         </af:popup>
         <af:form id="f1">
             <af:panelFormLayout id="pfl1">
@@ -80,7 +77,7 @@
                         </af:panelGroupLayout>
                         <af:panelGroupLayout id="pgl3" layout="horizontal">
                             <af:commandButton text="Submit" id="cb5"/>
-                            <af:commandButton text="Dialog" id="cb6" actionListener="#{mainBean.callDialog}"/>
+                            <af:commandButton text="Dialog" id="popup_btn" actionListener="#{mainBean.callDialog}"/>
                             <f:facet name="separator">
                                 <af:spacer width="10" height="10" id="s2"/>
                             </f:facet>

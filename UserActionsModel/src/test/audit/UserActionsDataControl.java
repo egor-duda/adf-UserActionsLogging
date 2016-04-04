@@ -5,6 +5,8 @@ import oracle.adf.model.adapter.AdapterDCService;
 
 import oracle.adf.share.logging.ADFLogger;
 
+import oracle.adf.view.rich.render.ClientEvent;
+
 import test.audit.client.ClientAction;
 import test.audit.client.ClientScript;
 
@@ -55,4 +57,11 @@ public class UserActionsDataControl {
             }
         }
     }
+    
+    public void replayDone(ClientEvent clientEvent) {
+        if (clientEvent == null) return;
+        UserActionsDataControl.replayDone();        
+        logger.info ("replay done");
+    }
+    
 }

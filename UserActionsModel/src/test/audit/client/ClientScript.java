@@ -6,13 +6,19 @@ public class ClientScript {
     
     private ClientAction[] actionsQueue = new ClientAction[0];
 
-    public ClientAction getAction() {
+    public ClientAction getAction () {
         if (counter >= actionsQueue.length) return null;
-        return actionsQueue [counter];
+        ClientAction retVal = actionsQueue [counter];
+        if (retVal.isMatchingContext()) {
+            counter ++;
+            return retVal;
+        } else {
+            return null;
+        }
     }
     
     public void nextAction () {
-        counter ++;
+        // counter ++;
     }
     
     public void loadScript (ClientAction[] actions) {

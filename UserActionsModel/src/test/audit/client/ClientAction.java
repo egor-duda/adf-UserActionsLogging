@@ -15,10 +15,15 @@ public abstract class ClientAction {
     
     public void invoke() {
         FacesContext fctx = FacesContext.getCurrentInstance();
-        if (context != null && !context.equals(fctx.getViewRoot().getViewId())) return;
+        if (!isMatchingContext()) return;
         String script = getActionJS();
         Service.getRenderKitService(fctx, ExtendedRenderKitService.class).addScript(fctx, script);
     };
+    
+    public boolean isMatchingContext () {
+        FacesContext fctx = FacesContext.getCurrentInstance();
+        return (context == null || context.equals(fctx.getViewRoot().getViewId()));
+    }
 
     protected abstract String getActionJS();
 

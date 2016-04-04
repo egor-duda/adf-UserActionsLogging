@@ -5,9 +5,14 @@ import java.lang.reflect.Method;
 
 import java.util.Iterator;
 
+import javax.el.ELContext;
+import javax.el.ExpressionFactory;
+import javax.el.MethodExpression;
+
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
@@ -17,12 +22,14 @@ import javax.faces.event.ValueChangeListener;
 import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.component.UIXInputPopup;
 import oracle.adf.view.rich.component.rich.RichDialog;
+import oracle.adf.view.rich.component.rich.RichDocument;
 import oracle.adf.view.rich.component.rich.RichPopup;
 import oracle.adf.view.rich.event.ClientListenerSet;
 import oracle.adf.view.rich.event.DialogListener;
 import oracle.adf.view.rich.event.LaunchPopupListener;
 import oracle.adf.view.rich.event.PopupCanceledListener;
 import oracle.adf.view.rich.event.ReturnPopupListener;
+import oracle.adf.view.rich.render.ClientEvent;
 
 public class GlobalLoggingListenerInjector implements SystemEventListener {
     
@@ -124,6 +131,9 @@ public class GlobalLoggingListenerInjector implements SystemEventListener {
             ClientListenerSet originalClientListenerSet = (ClientListenerSet) getClientListenersMethod.invoke (comp);
             if (originalClientListenerSet != null && !(originalClientListenerSet instanceof LoggingClientListenerSet)) {
                 LoggingClientListenerSet newClientListenerSet = new LoggingClientListenerSet (originalClientListenerSet);
+                if (comp instanceof RichDocument) {
+                    newClientListenerSet.addCustomServerListener("replayDone", getMethodExpression("#{helperBean.replayDone}"));
+                }
                 setClientListenersMethod.invoke(comp, newClientListenerSet);
                 logger.finest ("attached clientListener to " + comp.getClientId());
             }
@@ -160,4 +170,14 @@ public class GlobalLoggingListenerInjector implements SystemEventListener {
     public boolean isListenerForSource(Object source) {
         return (source instanceof UIViewRoot ? true : false);
     }
+    
+    private static MethodExpression getMethodExpression(String s) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        ELContext elctx = fc.getELContext();
+        ExpressionFactory elFactory = fc.getApplication().getExpressionFactory();
+        MethodExpression methodExpr = elFactory.createMethodExpression(elctx, s, null, new Class<?>[] {
+                                                                       ClientEvent.class });
+        return methodExpr;
+
+    }    
 }
