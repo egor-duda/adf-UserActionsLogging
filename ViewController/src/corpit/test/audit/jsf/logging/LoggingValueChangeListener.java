@@ -1,4 +1,4 @@
-package corpit.test.audit.jsf.view;
+package corpit.test.audit.jsf.logging;
 
 import java.util.logging.Level;
 
@@ -15,8 +15,16 @@ public class LoggingValueChangeListener implements ValueChangeListener, LoggingL
     
     private static final Level loggingLevel = Level.FINER;
     
+    private final ValueChangeListener delegate;
+    
     public LoggingValueChangeListener() {
         super();
+        this.delegate = null;
+    }
+
+    public LoggingValueChangeListener(ValueChangeListener delegate) {
+        super();
+        this.delegate = delegate;
     }
 
     @Override
@@ -34,6 +42,7 @@ public class LoggingValueChangeListener implements ValueChangeListener, LoggingL
         retVal.append (newValue == null ? "null" : newValue.toString());
         
         logger.log (loggingLevel, retVal.toString());
+        if (delegate != null) delegate.processValueChange(valueChangeEvent);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package corpit.test.audit.jsf.view;
+package corpit.test.audit.jsf.logging;
 
 import java.util.logging.Level;
 
@@ -14,8 +14,16 @@ public class LoggingDialogListener implements DialogListener, LoggingListener {
     
     private static final Level loggingLevel = Level.FINE;
     
+    private final DialogListener delegate;
+    
     public LoggingDialogListener () {
         super();
+        this.delegate = null;
+    }
+    
+    public LoggingDialogListener (DialogListener delegate) {
+        super();
+        this.delegate = delegate;
     }
 
     @Override
@@ -25,6 +33,7 @@ public class LoggingDialogListener implements DialogListener, LoggingListener {
                      + dialogEvent.getComponent().getClientId() 
                      + ", outcome: " 
                      + dialogEvent.getOutcome().toString());
+        if (delegate != null) delegate.processDialog(dialogEvent);
     }
 
     @Override

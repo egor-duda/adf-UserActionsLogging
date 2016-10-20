@@ -1,11 +1,11 @@
 package test.audit;
 
+import javax.faces.event.FacesEvent;
+
 import oracle.adf.model.BindingContext;
 import oracle.adf.model.adapter.AdapterDCService;
 
 import oracle.adf.share.logging.ADFLogger;
-
-import oracle.adf.view.rich.render.ClientEvent;
 
 import test.audit.client.ClientAction;
 import test.audit.client.ClientScript;
@@ -24,7 +24,7 @@ public class UserActionsDataControl {
         return clientScript.getAction();
     }
     
-    private void nextAction () {
+    public void nextAction () {
         clientScript.nextAction();
     }
     
@@ -42,26 +42,30 @@ public class UserActionsDataControl {
         return null;
     }
     
-    public static void replayDone () {
-        UserActionsDataControl dc = UserActionsDataControl.getInstance();
-        dc.nextAction();
-    }
-    
     public static void invokeAction () {
         UserActionsDataControl dc = UserActionsDataControl.getInstance();
         if (dc != null) {
             ClientAction currentAction = dc.getAction();
             if (currentAction != null) {
-                logger.finest ("setting action: " + currentAction);
+                logger.fine ("setting action: " + currentAction);
                 currentAction.invoke();
             }
         }
     }
     
-    public void replayDone(ClientEvent clientEvent) {
-        if (clientEvent == null) return;
-        UserActionsDataControl.replayDone();        
-        logger.info ("replay done");
+    public ClientScript getClientScript() {
+        return clientScript;
     }
     
+    public static void processEvent (FacesEvent event) {
+        UserActionsDataControl dc = UserActionsDataControl.getInstance();
+        if (dc != null) {
+            ClientAction currentAction = dc.getAction();
+            if (currentAction != null) {
+                if (currentAction.eventMatches (event)) {
+                    dc.nextAction();
+                };
+            }
+        }
+    }
 }

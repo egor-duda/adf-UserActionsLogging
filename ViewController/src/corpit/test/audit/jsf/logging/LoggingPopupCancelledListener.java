@@ -1,4 +1,4 @@
-package corpit.test.audit.jsf.view;
+package corpit.test.audit.jsf.logging;
 
 import java.util.logging.Level;
 

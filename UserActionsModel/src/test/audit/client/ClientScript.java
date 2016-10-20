@@ -10,7 +10,6 @@ public class ClientScript {
         if (counter >= actionsQueue.length) return null;
         ClientAction retVal = actionsQueue [counter];
         if (retVal.isMatchingContext()) {
-            counter ++;
             return retVal;
         } else {
             return null;
@@ -18,11 +17,15 @@ public class ClientScript {
     }
     
     public void nextAction () {
-        // counter ++;
+        counter ++;
     }
     
     public void loadScript (ClientAction[] actions) {
         this.actionsQueue = actions;
         counter = 0;
+    }
+
+    public ClientAction[] getActionsQueue() {
+        return actionsQueue;
     }
 }

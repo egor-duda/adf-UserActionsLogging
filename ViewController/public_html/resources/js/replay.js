@@ -1,73 +1,72 @@
-var currentCommand = {type: null, component: null, value: null};
-var executorRunning = false;
-var enableCallBack = false;
+function Command (type, component, value) {
+    this.type = type;
+    this.component = component;
+    this.value = value;
+}
 
-function runCommand (compId) {
+var commandWait = 0;
+
+function runCommand (command) {
     if (!AdfPage.PAGE.isSynchronizedWithServer()) {
-        executorRunning = true;
-        setTimeout(function() {runCommand(compId);}, 100);
+        commandWait = 1;
+        setTimeout(function() {runCommand(command);}, 1000);
     } else {
-        executorRunning = false;
-        if (currentCommand.type == 'ValueChange') {
-            doValueChange();
-        } else if (currentCommand.type == 'Action') {
-            doAction();
-        } else if (currentCommand.type == 'Dialog') {
-            doDialog();
+        if (command.type == 'ValueChange') {
+            doValueChange(command);
+        } else if (command.type == 'Action') {
+            doAction(command);
+        } else if (command.type == 'Dialog') {
+            doDialog(command);
         }
-        if (enableCallBack && currentCommand.type != null) {
-            var comp = AdfPage.PAGE.findComponentByAbsoluteId ("d1");
-            if (comp != null) AdfCustomEvent.queue(comp,"replayDone",{},false);
-        }        
     }
 }
 
-function doValueChange () {
+function doValueChange (command) {
     try {
-        var comp = AdfPage.PAGE.findComponentByAbsoluteId (currentCommand.component);
-        comp.setValue (currentCommand.value);
-        AdfValueChangeEvent.queue (comp, comp.getValue(), currentCommand.value, true);
+        var comp = AdfPage.PAGE.findComponentByAbsoluteId (command.component);
+        comp.setValue (command.value);
+        AdfValueChangeEvent.queue (comp, comp.getValue(), command.value, true);
+        commandWait = 0;
     } catch (e) {
         alert (e);
     }
 }
 
 function enterValue (compId, value) {
-    currentCommand.type = 'ValueChange';
-    currentCommand.component = compId;
-    currentCommand.value = value;
-    if (!executorRunning) { runCommand (compId); }
+    if (commandWait != 0) return;
+    var command = new Command ('ValueChange', compId, value);
+    runCommand (command);
 }
 
-function doAction () {
+function doAction (command) {
     try {
-        var comp = AdfPage.PAGE.findComponentByAbsoluteId (currentCommand.component);
+        var comp = AdfPage.PAGE.findComponentByAbsoluteId (command.component);
         AdfActionEvent.queue(comp, comp.getPartialSubmit());
+        commandWait = 0;
     } catch (e) {
         alert (e);
     }    
 }
 
 function pressButton (compId) {
-    currentCommand.type = 'Action';
-    currentCommand.component = compId;
-    currentCommand.value = null;
-    if (!executorRunning) { runCommand (compId); }
+    if (commandWait != 0) return;
+    var command = new Command ('Action', compId, null);
+    runCommand (command);
 }
 
-function doDialog () {
+function doDialog (command) {
     try {
-        var comp = AdfPage.PAGE.findComponentByAbsoluteId (currentCommand.component);
-        var event = new AdfDialogEvent (comp, currentCommand.value);
+        var comp = AdfPage.PAGE.findComponentByAbsoluteId (command.component);
+        var event = new AdfDialogEvent (comp, command.value);
         event.queue (true);
+        commandWait = 0;
     } catch (e) {
         alert (e);
     }
 }
 
 function processDialog (compId, value) {
-    currentCommand.type = 'Dialog';
-    currentCommand.component = compId;
-    currentCommand.value = value;
-    if (!executorRunning) { runCommand (compId); }
+    if (commandWait != 0) return;
+    var command = new Command ('Dialog', compId, value);
+    runCommand (command);
 }

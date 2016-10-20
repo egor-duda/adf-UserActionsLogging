@@ -77,20 +77,28 @@
                         </af:panelGroupLayout>
                         <af:panelGroupLayout id="pgl3" layout="horizontal">
                             <af:commandButton text="Submit" id="cb5"/>
-                            <af:commandButton text="Dialog" id="popup_btn" actionListener="#{mainBean.callDialog}"/>
+                            <af:commandButton text="Popup" id="popup_btn" actionListener="#{mainBean.callDialog}"/>
+                            <af:commandButton text="dialog-taskflow" action="dialog" id="dialog_btn" useWindow="true"
+                                            windowEmbedStyle="inlineDocument"
+                                            returnListener="#{mainBean.dialogReturnListener}" partialSubmit="true"/>
+                            <af:commandButton text="dialog-go" action="dialogPage" id="dialog_btn2" partialSubmit="true"/>
                             <f:facet name="separator">
                                 <af:spacer width="10" height="10" id="s2"/>
                             </f:facet>
                         </af:panelGroupLayout>
-                        <af:commandButton text="dialog-taskflow" action="dialog" id="dialog_btn" useWindow="true"
-                                          windowEmbedStyle="inlineDocument" windowModalityType="applicationModal"
-                                          returnListener="#{mainBean.dialogReturnListener}"/>
-                        <af:commandButton text="loadClientScript" id="cb8" partialSubmit="true"
+                        <af:commandButton text="loadClientScript" id="load_script_btn" partialSubmit="true"
                                           actionListener="#{bindings.loadClientScript.execute}"
                                           disabled="#{!bindings.loadClientScript.enabled}"/>
+                        <af:commandButton text="Debug" id="debug_btn" action="test"/>
                     </af:panelGroupLayout>
                 </f:facet>
             </af:panelFormLayout>
+            <af:table value="#{bindings.actionsQueue.collectionModel}" var="row"
+                      id="t1" partialTriggers="::load_script_btn" contentDelivery="immediate" columnStretching="last">
+                <af:column id="c1">
+                    <af:outputText value="#{row.description}" id="ot1"/>
+                </af:column>
+            </af:table>
         </af:form>
     </af:document>
 </f:view>

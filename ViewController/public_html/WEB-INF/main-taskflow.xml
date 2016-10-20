@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
   <task-flow-definition id="main-taskflow">
-    <default-activity>main</default-activity>
+    <default-activity>start</default-activity>
     <view id="main">
       <page>/main.jsf</page>
     </view>
@@ -19,17 +19,31 @@
     <view id="dialog">
       <page>/dialog.jsf</page>
     </view>
+    <view id="start">
+      <page>/start.jsf</page>
+    </view>
     <control-flow-rule id="__2">
       <from-activity-id>main</from-activity-id>
       <control-flow-case id="__3">
         <from-outcome>dialog</from-outcome>
         <to-activity-id>dialog-taskflow</to-activity-id>
       </control-flow-case>
+      <control-flow-case id="__6">
+        <from-outcome>dialogPage</from-outcome>
+        <to-activity-id>dialog</to-activity-id>
+      </control-flow-case>
     </control-flow-rule>
     <control-flow-rule id="__1">
       <from-activity-id>dialog</from-activity-id>
       <control-flow-case id="__4">
         <from-outcome>exit</from-outcome>
+        <to-activity-id>main</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__7">
+      <from-activity-id>start</from-activity-id>
+      <control-flow-case id="__8">
+        <from-outcome>goToMain</from-outcome>
         <to-activity-id>main</to-activity-id>
       </control-flow-case>
     </control-flow-rule>

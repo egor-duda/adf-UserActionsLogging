@@ -56,18 +56,20 @@ public class MainBean {
         final String MAIN_CONTEXT = "/main-taskflow/main";
         final String DIALOG_CONTEXT = "/dialog-taskflow/dialog";
         ClientAction[] test1 = new ClientAction [] {
-            new ValueChangeAction (MAIN_CONTEXT, "dept_name_it", "dummy")
-            , new ValueChangeAction (MAIN_CONTEXT, "loc_id_itcblov", "1200")
+            new CommandAction (MAIN_CONTEXT, "next_btn")
+            , new CommandAction (MAIN_CONTEXT, "first_btn")
+            , new ValueChangeAction (MAIN_CONTEXT, "dept_name_it", "dummy")
+            , new ValueChangeAction (MAIN_CONTEXT, "loc_id_itcblov", 1200)
             , new CommandAction (MAIN_CONTEXT, "dialog_btn")
             , new CommandAction (DIALOG_CONTEXT, "exit_btn")
             , new ValueChangeAction (MAIN_CONTEXT, "dept_name_it", "not dummy")
             , new CommandAction (MAIN_CONTEXT, "next_btn")
-            , new CommandAction (MAIN_CONTEXT, "last_btn")
+            , new CommandAction (MAIN_CONTEXT, "first_btn")
         };
         ClientAction[] test2 = new ClientAction[] {
             new CommandAction (MAIN_CONTEXT, "popup_btn")
             , new DialogAction (MAIN_CONTEXT, "main_dlg", "OUTCOME_CANCEL")
         };
-        return test2;
+        return test1;
     }
 }

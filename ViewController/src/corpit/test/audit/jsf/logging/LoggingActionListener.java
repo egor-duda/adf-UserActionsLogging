@@ -1,4 +1,4 @@
-package corpit.test.audit.jsf.view;
+package corpit.test.audit.jsf.logging;
 
 import javax.faces.component.UIComponent;
 import javax.faces.event.AbortProcessingException;
@@ -8,17 +8,18 @@ import javax.faces.event.ActionListener;
 import oracle.adf.controller.ControllerContext;
 import oracle.adf.share.logging.ADFLogger;
 
-public class GlobalActionListener implements ActionListener {
+public class LoggingActionListener implements ActionListener {
     
-    private static ADFLogger logger = ADFLogger.createADFLogger(GlobalActionListener.class);
+    private static ADFLogger logger = ADFLogger.createADFLogger(LoggingActionListener.class);
     private final ActionListener delegate;
     
-    public GlobalActionListener() {
+    public LoggingActionListener() {
         super();
         this.delegate = null;
     }
     
-    public GlobalActionListener (ActionListener delegate) {
+    public LoggingActionListener (ActionListener delegate) {
+        super();
         this.delegate = delegate;    
     }
 
@@ -36,8 +37,6 @@ public class GlobalActionListener implements ActionListener {
             viewId = controllerContext.getCurrentViewPort().getViewId();
         }
         logger.fine("Action on " + compId + "@" + viewId);
-        if (delegate != null) {
-            delegate.processAction (actionEvent);
-        }
+        if (delegate != null) delegate.processAction (actionEvent);
     }
 }

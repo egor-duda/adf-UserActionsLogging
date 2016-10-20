@@ -2,10 +2,16 @@ package test.audit.client;
 
 import javax.faces.context.FacesContext;
 
+import javax.faces.event.FacesEvent;
+
+import oracle.adf.share.logging.ADFLogger;
+
 import org.apache.myfaces.trinidad.render.ExtendedRenderKitService;
 import org.apache.myfaces.trinidad.util.Service;
 
 public abstract class ClientAction {
+    
+    private static final ADFLogger logger = ADFLogger.createADFLogger(ClientAction.class);
     
     private String context;
     
@@ -15,7 +21,12 @@ public abstract class ClientAction {
     
     public void invoke() {
         FacesContext fctx = FacesContext.getCurrentInstance();
-        if (!isMatchingContext()) return;
+        if (!isMatchingContext()) {
+            String errorMessage = "incorrect context: " + FacesContext.getCurrentInstance().getViewRoot().getViewId() + 
+                                  ", expecting " + context;
+            logger.severe (errorMessage);
+            throw new RuntimeException (errorMessage);
+        }
         String script = getActionJS();
         Service.getRenderKitService(fctx, ExtendedRenderKitService.class).addScript(fctx, script);
     };
@@ -26,5 +37,10 @@ public abstract class ClientAction {
     }
 
     protected abstract String getActionJS();
+    
+    public String getDescription () {
+        return toString();
+    }
 
+    public abstract boolean eventMatches (FacesEvent event);
 }

@@ -1,5 +1,15 @@
 package corpit.test.audit.jsf.view;
 
+import corpit.test.audit.jsf.logging.LoggingClientListenerSet;
+import corpit.test.audit.jsf.logging.LoggingDialogListener;
+import corpit.test.audit.jsf.logging.LoggingLaunchPopupListener;
+import corpit.test.audit.jsf.logging.LoggingPopupCancelledListener;
+import corpit.test.audit.jsf.logging.LoggingReturnPopupListener;
+import corpit.test.audit.jsf.logging.LoggingValueChangeListener;
+
+import corpit.test.audit.jsf.replay.ReplayDialogListener;
+import corpit.test.audit.jsf.replay.ReplayValueChangeListener;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -31,16 +41,16 @@ import oracle.adf.view.rich.event.PopupCanceledListener;
 import oracle.adf.view.rich.event.ReturnPopupListener;
 import oracle.adf.view.rich.render.ClientEvent;
 
-public class GlobalLoggingListenerInjector implements SystemEventListener {
+public class GlobalListenerInjector implements SystemEventListener {
     
-    private static ADFLogger logger = ADFLogger.createADFLogger(GlobalLoggingListenerInjector.class);
-    static private LoggingValueChangeListener globalLoggingValueChangeListener = new LoggingValueChangeListener ();
-    static private LoggingDialogListener globalLoggingDialogListener = new LoggingDialogListener ();
+    private static ADFLogger logger = ADFLogger.createADFLogger(GlobalListenerInjector.class);
+    static private LoggingValueChangeListener globalLoggingValueChangeListener = new LoggingValueChangeListener (new ReplayValueChangeListener());
+    static private LoggingDialogListener globalLoggingDialogListener = new LoggingDialogListener (new ReplayDialogListener());
     static private LoggingPopupCancelledListener globalLoggingPopupCancelledListener = new LoggingPopupCancelledListener ();
     static private LoggingLaunchPopupListener globalLoggingLaunchPopupListener = new LoggingLaunchPopupListener ();
     static private LoggingReturnPopupListener globalLoggingReturnPopupListener = new LoggingReturnPopupListener ();
     
-    public GlobalLoggingListenerInjector() {
+    public GlobalListenerInjector() {
         super();
     }
 
@@ -123,7 +133,6 @@ public class GlobalLoggingListenerInjector implements SystemEventListener {
     }
     
     private void recursiveAddGlobalClientListener (UIComponent comp) {
-        if (comp == null) return;
         if (!LoggingClientListenerSet.isLoggingEnabled()) return;
         try {
             Method getClientListenersMethod = comp.getClass().getMethod("getClientListeners");

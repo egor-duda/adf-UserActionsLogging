@@ -12,9 +12,9 @@
       <property
          name="page">/main.jsf</property>
       <property
-         name="start">true</property>
+         name="start">false</property>
       <property
-         name="description">&lt;html>&lt;p>&lt;b>main&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+         name="description">&lt;html>&lt;p>&lt;b>main&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
       <property
          name="exceptionHandler">false</property>
       <property
@@ -74,6 +74,43 @@
       <property
          name="fromOutcome">exit</property>
       <property
-         name="sdm:polyPoints">L46,157.0,422.12402,B56</property>
+         name="sdm:polyPoints">L58,146.5,432.62402,B39</property>
+   </ControlFlowCase>
+   <View
+      id="View10">
+      <property
+         name="activityId">start</property>
+      <property
+         name="page">/start.jsf</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>start&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="y">130.91602</property>
+      <property
+         name="x">191.5</property>
+   </View>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase11"
+      from="View2"
+      to="View5">
+      <property
+         name="fromOutcome">dialogPage</property>
+      <property
+         name="sdm:polyPoints">B44,150.0,429.12402,L54</property>
+   </ControlFlowCase>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase12"
+      from="View10"
+      to="View2">
+      <property
+         name="fromOutcome">goToMain</property>
+      <property
+         name="sdm:polyPoints">B50,191.5,199.93457,153.5,199.93457,T50</property>
    </ControlFlowCase>
 </SDM>

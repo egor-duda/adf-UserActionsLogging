@@ -6,6 +6,13 @@
     <variableIterator id="variables"/>
     <iterator Binds="AllDepartments" RangeSize="25" DataControl="AppModuleDataControl" id="AllDepartmentsIterator"
               ChangeEventPolicy="ppr"/>
+    <iterator Binds="root" RangeSize="25" DataControl="UserActionsDataControl" id="UserActionsDataControlIterator"/>
+    <accessorIterator MasterBinding="UserActionsDataControlIterator" Binds="clientScript" RangeSize="25"
+                      DataControl="UserActionsDataControl" BeanClass="test.audit.client.ClientScript"
+                      id="clientScriptIterator"/>
+    <accessorIterator MasterBinding="clientScriptIterator" Binds="actionsQueue" RangeSize="25"
+                      DataControl="UserActionsDataControl" BeanClass="test.audit.client.ClientAction"
+                      id="actionsQueueIterator" CacheResults="false"/>
   </executables>
   <bindings>
     <attributeValues IterBinding="AllDepartmentsIterator" id="DepartmentId">
@@ -34,5 +41,12 @@
       <NamedData NDName="actions" NDValue="#{mainBean.replayScript}"
                  NDType="test.audit.client.ClientAction[]"/>
     </methodAction>
+    <tree IterBinding="actionsQueueIterator" id="actionsQueue">
+      <nodeDefinition DefName="test.audit.client.ClientAction" Name="actionsQueue0">
+        <AttrNames>
+          <Item Value="description"/>
+        </AttrNames>
+      </nodeDefinition>
+    </tree>
   </bindings>
 </pageDefinition>
