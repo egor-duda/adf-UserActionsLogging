@@ -10,6 +10,7 @@ import oracle.adf.view.rich.render.ClientEvent;
 
 import org.apache.myfaces.trinidad.event.ReturnEvent;
 
+import test.audit.UserActionsDataControl;
 import test.audit.client.ClientAction;
 import test.audit.client.CommandAction;
 import test.audit.client.DialogAction;
@@ -28,11 +29,15 @@ public class MainBean {
     }
     
     public void onLoad (ClientEvent clientEvent) {
-        if (clientEvent == null) return;
+        logger.info (clientEvent.getType());
+    }
+
+    public void callback (ClientEvent clientEvent) {
+        UserActionsDataControl.processError (clientEvent);
     }
 
     public void callDialog (ActionEvent actionEvent) {
-        actionEvent.hashCode();
+        logger.info (actionEvent.getComponent().getClientId());
         dialogPopupComponent.show(new RichPopup.PopupHints());
     }
 
@@ -56,8 +61,7 @@ public class MainBean {
         final String MAIN_CONTEXT = "/main-taskflow/main";
         final String DIALOG_CONTEXT = "/dialog-taskflow/dialog";
         ClientAction[] test1 = new ClientAction [] {
-            new CommandAction (MAIN_CONTEXT, "next_btn")
-            , new CommandAction (MAIN_CONTEXT, "first_btn")
+            new CommandAction (MAIN_CONTEXT, "first_btn")
             , new ValueChangeAction (MAIN_CONTEXT, "dept_name_it", "dummy")
             , new ValueChangeAction (MAIN_CONTEXT, "loc_id_itcblov", 1200)
             , new CommandAction (MAIN_CONTEXT, "dialog_btn")
@@ -65,9 +69,7 @@ public class MainBean {
             , new ValueChangeAction (MAIN_CONTEXT, "dept_name_it", "not dummy")
             , new CommandAction (MAIN_CONTEXT, "next_btn")
             , new CommandAction (MAIN_CONTEXT, "first_btn")
-        };
-        ClientAction[] test2 = new ClientAction[] {
-            new CommandAction (MAIN_CONTEXT, "popup_btn")
+            , new CommandAction (MAIN_CONTEXT, "popup_btn")
             , new DialogAction (MAIN_CONTEXT, "main_dlg", "OUTCOME_CANCEL")
         };
         return test1;

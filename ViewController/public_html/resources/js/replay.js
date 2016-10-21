@@ -24,7 +24,11 @@ function runCommand (command) {
 function doValueChange (command) {
     try {
         var comp = AdfPage.PAGE.findComponentByAbsoluteId (command.component);
-        comp.setValue (command.value);
+        if (comp.getValue () == command.value) {
+            callback (command, 'value unchanged');
+        } else {
+            comp.setValue (command.value);
+        }
         AdfValueChangeEvent.queue (comp, comp.getValue(), command.value, true);
         commandWait = 0;
     } catch (e) {
@@ -41,7 +45,11 @@ function enterValue (compId, value) {
 function doAction (command) {
     try {
         var comp = AdfPage.PAGE.findComponentByAbsoluteId (command.component);
-        AdfActionEvent.queue(comp, comp.getPartialSubmit());
+        if (comp.getDisabled()) {
+            callback (command, 'component disabled');
+        } else {
+            AdfActionEvent.queue(comp, comp.getPartialSubmit());   
+        }
         commandWait = 0;
     } catch (e) {
         alert (e);
@@ -70,3 +78,14 @@ function processDialog (compId, value) {
     var command = new Command ('Dialog', compId, value);
     runCommand (command);
 }
+
+function callback (command, reason) {
+    try {
+        var rootComp = AdfPage.PAGE.findComponentByAbsoluteId ("root_doc");
+        AdfCustomEvent.queue(rootComp,"replayCallback",{"type": command.type, "component": command.component, "reason": reason },false);
+    } catch (e) {
+        alert (e);
+    }
+    return true;
+}
+

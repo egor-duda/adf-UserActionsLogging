@@ -1,11 +1,15 @@
 package test.audit;
 
+import java.util.Map;
+
 import javax.faces.event.FacesEvent;
 
 import oracle.adf.model.BindingContext;
 import oracle.adf.model.adapter.AdapterDCService;
 
 import oracle.adf.share.logging.ADFLogger;
+
+import oracle.adf.view.rich.render.ClientEvent;
 
 import test.audit.client.ClientAction;
 import test.audit.client.ClientScript;
@@ -68,4 +72,16 @@ public class UserActionsDataControl {
             }
         }
     }
+    
+    public static void processError (ClientEvent event) {
+        UserActionsDataControl dc = UserActionsDataControl.getInstance();
+        if (dc != null) {
+            Map<String, Object> parameters = event.getParameters();
+            String action = (String)parameters.get("type");
+            String componentId = (String)parameters.get("component");
+            String reason = (String)parameters.get("reason");
+            logger.warning ("Warning: " + action + " on " + componentId + " skipped. Reason: " + reason);
+            dc.nextAction();
+        }
+    }    
 }
