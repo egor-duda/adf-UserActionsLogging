@@ -1,4 +1,4 @@
-package corpit.test.audit.jsf.view;
+package corpit.test.audit.jsf;
 
 import corpit.test.audit.jsf.logging.LoggingClientListenerSet;
 import corpit.test.audit.jsf.logging.LoggingDialogListener;
@@ -34,21 +34,23 @@ import oracle.adf.view.rich.component.UIXInputPopup;
 import oracle.adf.view.rich.component.rich.RichDialog;
 import oracle.adf.view.rich.component.rich.RichDocument;
 import oracle.adf.view.rich.component.rich.RichPopup;
+import oracle.adf.view.rich.component.rich.input.RichInputText;
 import oracle.adf.view.rich.event.ClientListenerSet;
 import oracle.adf.view.rich.event.DialogListener;
 import oracle.adf.view.rich.event.LaunchPopupListener;
 import oracle.adf.view.rich.event.PopupCanceledListener;
 import oracle.adf.view.rich.event.ReturnPopupListener;
 import oracle.adf.view.rich.render.ClientEvent;
+import oracle.adf.view.rich.resource.PageResource;
 
 public class GlobalListenerInjector implements SystemEventListener {
     
     private static ADFLogger logger = ADFLogger.createADFLogger(GlobalListenerInjector.class);
-    static private LoggingValueChangeListener globalLoggingValueChangeListener = new LoggingValueChangeListener (new ReplayValueChangeListener());
-    static private LoggingDialogListener globalLoggingDialogListener = new LoggingDialogListener (new ReplayDialogListener());
-    static private LoggingPopupCancelledListener globalLoggingPopupCancelledListener = new LoggingPopupCancelledListener ();
-    static private LoggingLaunchPopupListener globalLoggingLaunchPopupListener = new LoggingLaunchPopupListener ();
-    static private LoggingReturnPopupListener globalLoggingReturnPopupListener = new LoggingReturnPopupListener ();
+    static private LoggingValueChangeListener globalValueChangeListener = new LoggingValueChangeListener (new ReplayValueChangeListener());
+    static private LoggingDialogListener globalDialogListener = new LoggingDialogListener (new ReplayDialogListener());
+    static private LoggingPopupCancelledListener globalPopupCancelledListener = new LoggingPopupCancelledListener ();
+    static private LoggingLaunchPopupListener globalLaunchPopupListener = new LoggingLaunchPopupListener ();
+    static private LoggingReturnPopupListener globalReturnPopupListener = new LoggingReturnPopupListener ();
     
     public GlobalListenerInjector() {
         super();
@@ -56,7 +58,7 @@ public class GlobalListenerInjector implements SystemEventListener {
 
     private void recursiveAddGlobalListeners (UIComponent comp) {
         if (comp == null) return;
-        if (comp instanceof EditableValueHolder && globalLoggingValueChangeListener.isLoggingEnabled()) {
+        if (comp instanceof EditableValueHolder && globalValueChangeListener.isListenerActive()) {
             EditableValueHolder editableComponent = (EditableValueHolder)comp;
             boolean alreadyInjected = false;
             for (ValueChangeListener valueChangeListener: editableComponent.getValueChangeListeners()) {
@@ -66,11 +68,11 @@ public class GlobalListenerInjector implements SystemEventListener {
                 }
             }
             if (!alreadyInjected) {
-                ((EditableValueHolder)comp).addValueChangeListener(globalLoggingValueChangeListener);
+                ((EditableValueHolder)comp).addValueChangeListener(globalValueChangeListener);
                 logger.finest ("attached valueChangeListener to " + comp.getClientId());
             }
         }
-        if (comp instanceof RichDialog && globalLoggingDialogListener.isLoggingEnabled()) {
+        if (comp instanceof RichDialog && globalDialogListener.isListenerActive()) {
             RichDialog dialogComponent = (RichDialog)comp;
             boolean alreadyInjected = false;
             for (DialogListener dialogListener: dialogComponent.getDialogListeners()) {
@@ -80,11 +82,11 @@ public class GlobalListenerInjector implements SystemEventListener {
                 }
             }
             if (!alreadyInjected) {
-                dialogComponent.addDialogListener (globalLoggingDialogListener);
+                dialogComponent.addDialogListener (globalDialogListener);
                 logger.finest ("attached dialogListener to " + comp.getClientId());
             }
         }
-        if (comp instanceof RichPopup && globalLoggingPopupCancelledListener.isLoggingEnabled()) {
+        if (comp instanceof RichPopup && globalPopupCancelledListener.isListenerActive()) {
             RichPopup popupComponent = (RichPopup)comp;
             boolean alreadyInjected = false;
             for (PopupCanceledListener popupCancelledListener: popupComponent.getPopupCanceledListeners()) {
@@ -94,12 +96,12 @@ public class GlobalListenerInjector implements SystemEventListener {
                 }
             }
             if (!alreadyInjected) {
-                popupComponent.addPopupCanceledListener(globalLoggingPopupCancelledListener);
+                popupComponent.addPopupCanceledListener(globalPopupCancelledListener);
                 logger.finest ("attached popupCancelledListener to " + comp.getClientId());
             }
         }
         if (comp instanceof UIXInputPopup && 
-            ( globalLoggingLaunchPopupListener.isLoggingEnabled() || globalLoggingReturnPopupListener.isLoggingEnabled())) {
+            ( globalLaunchPopupListener.isListenerActive() || globalReturnPopupListener.isListenerActive())) {
             UIXInputPopup popupComponent = (UIXInputPopup)comp;
             boolean launchPopupListenerAlreadyInjected = false;
             for (LaunchPopupListener launchPopupListener: popupComponent.getLaunchPopupListeners()) {
@@ -109,7 +111,7 @@ public class GlobalListenerInjector implements SystemEventListener {
                 }
             }
             if (!launchPopupListenerAlreadyInjected) {
-                popupComponent.addLaunchPopupListener(globalLoggingLaunchPopupListener);
+                popupComponent.addLaunchPopupListener(globalLaunchPopupListener);
                 logger.finest ("attached launchPopupListener to " + comp.getClientId());
             }
             
@@ -121,7 +123,7 @@ public class GlobalListenerInjector implements SystemEventListener {
                 }
             }
             if (!returnPopupListenerAlreadyInjected) {
-                popupComponent.addReturnPopupListener(globalLoggingReturnPopupListener);
+                popupComponent.addReturnPopupListener(globalReturnPopupListener);
                 logger.finest ("attached returnPopupListener to " + comp.getClientId());
             }
         }
@@ -134,15 +136,15 @@ public class GlobalListenerInjector implements SystemEventListener {
     
     private void recursiveAddGlobalClientListener (UIComponent comp) {
         if (!LoggingClientListenerSet.isLoggingEnabled()) return;
+        if (comp instanceof RichDocument) {
+            fixupRootDocument((RichDocument)comp);
+        }        
         try {
             Method getClientListenersMethod = comp.getClass().getMethod("getClientListeners");
             Method setClientListenersMethod = comp.getClass().getMethod("setClientListeners", ClientListenerSet.class);
             ClientListenerSet originalClientListenerSet = (ClientListenerSet) getClientListenersMethod.invoke (comp);
             if (originalClientListenerSet != null && !(originalClientListenerSet instanceof LoggingClientListenerSet)) {
                 LoggingClientListenerSet newClientListenerSet = new LoggingClientListenerSet (originalClientListenerSet);
-                if (comp instanceof RichDocument) {
-                    newClientListenerSet.addCustomServerListener("replayDone", getMethodExpression("#{helperBean.replayDone}"));
-                }
                 setClientListenersMethod.invoke(comp, newClientListenerSet);
                 logger.finest ("attached clientListener to " + comp.getClientId());
             }
@@ -160,14 +162,40 @@ public class GlobalListenerInjector implements SystemEventListener {
         return;
     }
 
+    private static final String RESERVED_COMPONENT_ID = "__JSF_AUIDIT_HELPER";
+    private static final String REPLAY_JS_PATH = "/resources/js/replay.js";
+
+    private void fixupRootDocument(RichDocument root) {
+        RichPopup helper = (RichPopup)findChild (root, RESERVED_COMPONENT_ID);
+        if (helper != null) return;
+        helper = new RichPopup ();
+        helper.setId(RESERVED_COMPONENT_ID);
+        ClientListenerSet newClientListenerSet = new ClientListenerSet();
+        newClientListenerSet.addCustomServerListener("reportReplayError", getMethodExpression("#{helperBean.handleReplayError}"));
+        helper.setClientListeners(newClientListenerSet);
+        root.getChildren().add(helper);
+        PageResource replayJS = new PageResource(PageResource.ResourceType.JAVASCRIPT, PageResource.ResourceLocation.URI, REPLAY_JS_PATH);
+        root.addResource (replayJS);
+    }
+    
+    private UIComponent findChild (UIComponent parent, String childId) {
+        UIComponent retVal = null;
+        for (UIComponent child: parent.getChildren()) {
+            if (childId.equals(child.getId())) {
+                retVal = child;
+                break;
+            }
+        }
+        return retVal;
+    }
 
     @Override
     public void processEvent(SystemEvent systemEvent) throws AbortProcessingException {
-        if (globalLoggingDialogListener.isLoggingEnabled()
-            || globalLoggingLaunchPopupListener.isLoggingEnabled()
-            || globalLoggingPopupCancelledListener.isLoggingEnabled()
-            || globalLoggingReturnPopupListener.isLoggingEnabled()
-            || globalLoggingValueChangeListener.isLoggingEnabled()) {
+        if (globalDialogListener.isListenerActive()
+            || globalLaunchPopupListener.isListenerActive()
+            || globalPopupCancelledListener.isListenerActive()
+            || globalReturnPopupListener.isListenerActive()
+            || globalValueChangeListener.isListenerActive()) {
             recursiveAddGlobalListeners ((UIViewRoot)systemEvent.getSource());
         }
         if (LoggingClientListenerSet.isLoggingEnabled()) {

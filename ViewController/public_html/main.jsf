@@ -2,7 +2,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <f:view xmlns:f="http://java.sun.com/jsf/core" xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
     <af:document title="main.jsf" id="root_doc">
-        <af:serverListener type="replayCallback" method="#{mainBean.callback}"/>
         <af:serverListener type="onloadEvent" method="#{mainBean.onLoad}"/>
         <af:clientListener method="onLoadClient" type="load"/>    
         <af:resource type="javascript">            
@@ -15,7 +14,6 @@
                 return true;
             }
         </af:resource>
-        <af:resource type="javascript" source="/resources/js/replay.js" />
         <af:messages id="m1"/>
         <af:popup childCreation="deferred" autoCancel="disabled" id="p1" binding="#{mainBean.dialogPopupComponent}">
             <af:dialog id="main_dlg" dialogListener="#{mainBean.dialogListener}"/>

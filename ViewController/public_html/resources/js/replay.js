@@ -25,11 +25,11 @@ function doValueChange (command) {
     try {
         var comp = AdfPage.PAGE.findComponentByAbsoluteId (command.component);
         if (comp.getValue () == command.value) {
-            callback (command, 'value unchanged');
+            reportReplayError (command, 'value unchanged');
         } else {
             comp.setValue (command.value);
+            AdfValueChangeEvent.queue (comp, comp.getValue(), command.value, true);
         }
-        AdfValueChangeEvent.queue (comp, comp.getValue(), command.value, true);
         commandWait = 0;
     } catch (e) {
         alert (e);
@@ -46,7 +46,7 @@ function doAction (command) {
     try {
         var comp = AdfPage.PAGE.findComponentByAbsoluteId (command.component);
         if (comp.getDisabled()) {
-            callback (command, 'component disabled');
+            reportReplayError (command, 'component disabled');
         } else {
             AdfActionEvent.queue(comp, comp.getPartialSubmit());   
         }
@@ -79,10 +79,10 @@ function processDialog (compId, value) {
     runCommand (command);
 }
 
-function callback (command, reason) {
+function reportReplayError (command, reason) {
     try {
-        var rootComp = AdfPage.PAGE.findComponentByAbsoluteId ("root_doc");
-        AdfCustomEvent.queue(rootComp,"replayCallback",{"type": command.type, "component": command.component, "reason": reason },false);
+        var rootComp = AdfPage.PAGE.findComponentByAbsoluteId ("__JSF_AUIDIT_HELPER");
+        AdfCustomEvent.queue(rootComp,"reportReplayError",{"actionType": command.type, "component": command.component, "reason": reason},false);
     } catch (e) {
         alert (e);
     }

@@ -32,10 +32,6 @@ public class MainBean {
         logger.info (clientEvent.getType());
     }
 
-    public void callback (ClientEvent clientEvent) {
-        UserActionsDataControl.processError (clientEvent);
-    }
-
     public void callDialog (ActionEvent actionEvent) {
         logger.info (actionEvent.getComponent().getClientId());
         dialogPopupComponent.show(new RichPopup.PopupHints());
@@ -63,7 +59,7 @@ public class MainBean {
         ClientAction[] test1 = new ClientAction [] {
             new CommandAction (MAIN_CONTEXT, "first_btn")
             , new ValueChangeAction (MAIN_CONTEXT, "dept_name_it", "dummy")
-            , new ValueChangeAction (MAIN_CONTEXT, "loc_id_itcblov", 1200)
+            , new ValueChangeAction (MAIN_CONTEXT, "loc_id_itcblov", 1500)
             , new CommandAction (MAIN_CONTEXT, "dialog_btn")
             , new CommandAction (DIALOG_CONTEXT, "exit_btn")
             , new ValueChangeAction (MAIN_CONTEXT, "dept_name_it", "not dummy")

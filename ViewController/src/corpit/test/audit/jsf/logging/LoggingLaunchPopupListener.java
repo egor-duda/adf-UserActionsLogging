@@ -1,5 +1,7 @@
 package corpit.test.audit.jsf.logging;
 
+import corpit.test.audit.jsf.InjectedListener;
+
 import java.util.logging.Level;
 
 import javax.faces.event.AbortProcessingException;
@@ -8,7 +10,7 @@ import oracle.adf.share.logging.ADFLogger;
 import oracle.adf.view.rich.event.LaunchPopupEvent;
 import oracle.adf.view.rich.event.LaunchPopupListener;
 
-public class LoggingLaunchPopupListener implements LaunchPopupListener, LoggingListener {
+public class LoggingLaunchPopupListener implements LaunchPopupListener, InjectedListener {
     
     private static final ADFLogger logger = ADFLogger.createADFLogger (LoggingLaunchPopupListener.class);
     
@@ -30,7 +32,7 @@ public class LoggingLaunchPopupListener implements LaunchPopupListener, LoggingL
     }
 
     @Override
-    public boolean isLoggingEnabled() {
+    public boolean isListenerActive() {
         return logger.isLoggable (loggingLevel);
     }
 }

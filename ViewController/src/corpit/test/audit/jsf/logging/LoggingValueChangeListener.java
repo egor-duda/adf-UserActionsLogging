@@ -1,5 +1,7 @@
 package corpit.test.audit.jsf.logging;
 
+import corpit.test.audit.jsf.InjectedListener;
+
 import java.util.logging.Level;
 
 import javax.faces.component.UIComponent;
@@ -9,7 +11,7 @@ import javax.faces.event.ValueChangeListener;
 
 import oracle.adf.share.logging.ADFLogger;
 
-public class LoggingValueChangeListener implements ValueChangeListener, LoggingListener {
+public class LoggingValueChangeListener implements ValueChangeListener, InjectedListener {
     
     private static ADFLogger logger = ADFLogger.createADFLogger(LoggingValueChangeListener.class);
     
@@ -46,7 +48,7 @@ public class LoggingValueChangeListener implements ValueChangeListener, LoggingL
     }
 
     @Override
-    public boolean isLoggingEnabled() {
-        return logger.isLoggable (loggingLevel);
+    public boolean isListenerActive() {
+        return logger.isLoggable (loggingLevel)  || (delegate instanceof InjectedListener && ((InjectedListener)delegate).isListenerActive());
     }
 }

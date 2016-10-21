@@ -73,14 +73,18 @@ public class UserActionsDataControl {
         }
     }
     
+    public void handleReplayError (ClientEvent clientEvent) {
+        UserActionsDataControl.processError (clientEvent);
+    }
+    
     public static void processError (ClientEvent event) {
         UserActionsDataControl dc = UserActionsDataControl.getInstance();
         if (dc != null) {
             Map<String, Object> parameters = event.getParameters();
-            String action = (String)parameters.get("type");
+            String actionType = (String)parameters.get("actionType");
             String componentId = (String)parameters.get("component");
             String reason = (String)parameters.get("reason");
-            logger.warning ("Warning: " + action + " on " + componentId + " skipped. Reason: " + reason);
+            logger.warning ("Warning: " + actionType + " on " + componentId + " skipped. Reason: " + reason);
             dc.nextAction();
         }
     }    

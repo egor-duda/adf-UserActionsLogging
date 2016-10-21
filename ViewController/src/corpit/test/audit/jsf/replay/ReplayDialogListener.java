@@ -1,5 +1,7 @@
 package corpit.test.audit.jsf.replay;
 
+import corpit.test.audit.jsf.InjectedListener;
+
 import javax.faces.event.AbortProcessingException;
 
 import oracle.adf.view.rich.event.DialogEvent;
@@ -7,7 +9,7 @@ import oracle.adf.view.rich.event.DialogListener;
 
 import test.audit.UserActionsDataControl;
 
-public class ReplayDialogListener implements DialogListener {
+public class ReplayDialogListener implements DialogListener, InjectedListener {
     
     private final DialogListener delegate;
     
@@ -25,5 +27,10 @@ public class ReplayDialogListener implements DialogListener {
     public void processDialog (DialogEvent dialogEvent) throws AbortProcessingException {
         UserActionsDataControl.processEvent (dialogEvent);
         if (delegate != null) delegate.processDialog(dialogEvent);
+    }
+
+    @Override
+    public boolean isListenerActive() {
+        return true || (delegate instanceof InjectedListener && ((InjectedListener)delegate).isListenerActive());
     }
 }
